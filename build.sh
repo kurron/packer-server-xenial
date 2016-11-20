@@ -5,5 +5,5 @@ export PACKER_LOG=activate
 
 packer validate packer.json
 packer build --force packer.json
-vagrant box add --clean --force --name xenial-server-bare/5.1.8 vagrant-bare/xenial-server-bare.box
+vagrant box add --clean --force --name xenial-server-docker/5.1.8 vagrant/xenial-server-docker.box
 vagrant box list

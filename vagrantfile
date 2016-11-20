@@ -21,12 +21,12 @@ Vagrant.configure(2) do |config|
       v.customize ["modifyvm", :id, "--cpus", "1"]
   end
 
-  config.vm.define "xenial-bare" do |server|
+  config.vm.define "xenial-docker" do |server|
       server.vm.provider "virtualbox" do |v|
           v.gui = true
-          v.name = "packer.xenial-bare"
+          v.name = "packer.xenial-docker"
       end
-      server.vm.box = "xenial-server-bare/5.1.8"
+      server.vm.box = "xenial-server-docker/5.1.8"
   end
 
 end

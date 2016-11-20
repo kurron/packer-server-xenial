@@ -1,0 +1,22 @@
+---
+- hosts: localhost
+  gather_facts: yes
+
+  pre_tasks:
+      - name: Create Docker Mount Point
+        file:
+            path: "/var/lib/docker"
+            state: directory
+        become: yes
+      - name: Mount Docker Partition
+        mount:
+            name: "/var/lib/docker"
+            src: "UUID=18742bca-d85e-4300-88d6-9bf90f4b3a76"
+            fstype: xfs
+            opts: rw
+            state: mounted
+        become: yes
+
+
+  roles:
+      - { role: kurron.docker-host }
