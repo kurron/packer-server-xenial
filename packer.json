@@ -6,7 +6,7 @@
         "ssh_name": "vagrant",
         "ssh_pass": "vagrant",
         "hostname": "xenial-server-bare",
-        "version": "1.1.8",
+        "version": "5.1.7",
         "comment": "Upgrade to VirtualBox 5.1.8",
         "ovf": "Xenial-x64-Server.ova"
     },
@@ -60,6 +60,17 @@
              "keep_input_artifact": true,
              "output": "vagrant-bare/xenial-server-bare.box",
              "type": "vagrant"
-        }]
+        },
+        {
+            "type": "atlas",
+            "artifact": "kurron/xenial-server-bare",
+            "artifact_type": "vagrant.box",
+            "metadata": {
+                "provider": "virtualbox",
+                "version": "{{user `version`}}",
+                "description": "{{user `comment`}}",
+                "created_at": "{{timestamp}}"
+              }
+          }]
     ]
 }
