@@ -6,7 +6,7 @@
         "ssh_name": "vagrant",
         "ssh_pass": "vagrant",
         "hostname": "xenial-server-docker",
-        "version": "5.1.7",
+        "version": "5.1.8",
         "comment": "Docker 1.12.3",
         "home": "{{env `HOME`}}",
         "bare-version": "5.1.8"
@@ -68,6 +68,17 @@
              "keep_input_artifact": false,
              "output": "vagrant/xenial-server-docker.box",
              "type": "vagrant"
+        },
+        {
+            "type": "atlas",
+            "artifact": "kurron/xenial-server-docker",
+            "artifact_type": "vagrant.box",
+            "metadata": {
+                "provider": "virtualbox",
+                "version": "{{user `version`}}",
+                "description": "{{user `comment`}}",
+                "created_at": "{{timestamp}}"
+            }
         }]
     ]
 }
