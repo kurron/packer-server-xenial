@@ -24,7 +24,6 @@ and publish them to Hashicorp's Atlas.
 # Tips and Tricks
 
 ## Testing The Box
-
 `vagrant up` will launch the server VM.
 Once you are statisfied that the box built correctly, use `vagrant destroy` to remove it.
 

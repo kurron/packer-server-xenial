@@ -1,12 +1,12 @@
 {
-    "description": "Builds a bare bones, Ansible enabled Ubuntu 16.04 Server x64 box",
-    "min_packer_version": "0.11.0",
+    "description": "Builds a bare bones, Ubuntu 16.04 Server x64 box",
+    "min_packer_version": "0.12.0",
 
     "variables": {
         "ssh_name": "vagrant",
         "ssh_pass": "vagrant",
-        "hostname": "xenial-server",
-        "version": "5.1.8",
+        "hostname": "xenial-server-bare",
+        "version": "1.1.8",
         "comment": "Upgrade to VirtualBox 5.1.8",
         "ovf": "Xenial-x64-Server.ova"
     },
@@ -31,21 +31,21 @@
         "ssh_username": "{{user `ssh_name`}}",
         "ssh_wait_timeout": "20m",
         "type": "virtualbox-ovf",
-	"vboxmanage": [ 
-		    ["modifyvm", "{{.Name}}", "--vram", "16"],
-		    ["modifyvm", "{{.Name}}", "--memory", "512"],
-		    ["modifyvm", "{{.Name}}", "--cpus", "1"],
-		    ["modifyvm", "{{.Name}}", "--audio", "none"],
-		    ["modifyvm", "{{.Name}}", "--clipboard", "bidirectional"]
-	],
+        "vboxmanage": [
+		        ["modifyvm", "{{.Name}}", "--vram", "16"],
+		        ["modifyvm", "{{.Name}}", "--memory", "512"],
+		        ["modifyvm", "{{.Name}}", "--cpus", "1"],
+		        ["modifyvm", "{{.Name}}", "--audio", "none"],
+		        ["modifyvm", "{{.Name}}", "--clipboard", "bidirectional"]
+	      ],
 	"vboxmanage_post": [],
-	"vm_name": "xenial-x64-server"
-    }],	
+	"vm_name": "xenial-server-bare"
+    }],
     "provisioners": [
         {
             "execute_command": "echo '{{user `ssh_pass`}}' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
             "type": "shell",
-            "scripts": ["scripts/passwordless-sudo.sh", 
+            "scripts": ["scripts/passwordless-sudo.sh",
                         "scripts/install-tools.sh",
                         "scripts/configure-ssh-directory.sh",
                         "scripts/disable-dns-lookups.sh",
@@ -57,20 +57,9 @@
         [{
              "compression_level": 9,
              "include": [],
-             "keep_input_artifact": false,
-             "output": "vagrant/xenial-x64-server.box",
+             "keep_input_artifact": true,
+             "output": "vagrant-bare/xenial-server-bare.box",
              "type": "vagrant"
-        },
-	    {
-            "type": "atlas",
-            "artifact": "kurron/xenial-x64-server",
-            "artifact_type": "vagrant.box",
-            "metadata": {
-	        "provider": "virtualbox",
-		"version": "{{user `version`}}",
-		"description": "{{user `comment`}}",
-                "created_at": "{{timestamp}}"
-            }
         }]
     ]
 }
