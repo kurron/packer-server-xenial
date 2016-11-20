@@ -27,12 +27,12 @@ and publish them to Hashicorp's Atlas.
 `vagrant up` will launch the server VM.
 Once you are statisfied that the box built correctly, use `vagrant destroy` to remove it.
 
-# Troubleshooting
+## Enhanced Versions
+Enhancements to this box live in Git branches.  Explore the other branches of
+this project to see what might be of interest to you, such as a Docker server
+or a box with the Hashistack installed.
 
-## Custom VirtualBox Appliance
-Currently, the process relies upon a VirtualBox applicance which was created by hand and is not
-currently part of this project.  I did this because I wanted to use the virtualization aware kernel
-and couldn't figure out how to do that in an automated fashion.
+# Troubleshooting
 
 # License and Credits
 This project is licensed under the [Apache License Version 2.0, January 2004](http://www.apache.org/licenses/).
