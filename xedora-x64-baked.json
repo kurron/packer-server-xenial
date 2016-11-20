@@ -1,0 +1,104 @@
+{
+    "description": "Fully provisioned Ansible enabled Fedora 24 Desktop x64 box",
+    "min_packer_version": "0.11.0",
+
+    "variables": {
+        "ssh_name": "vagrant",
+        "ssh_pass": "vagrant",
+        "hostname": "xedora",
+        "version": "5.1.9",
+        "comment": "Upgrade to VirtualBox 5.1.8",
+        "ova": "Xedora-x64.ova"
+    },
+
+    "builders": [{
+        "boot_command" : [],
+        "boot_wait": "10s",
+        "floppy_files": [],
+        "format": "ova",
+        "guest_additions_mode": "upload",
+        "guest_additions_path" : "VBoxGuestAdditions_{{.Version}}.iso",
+        "headless": false,
+        "http_directory" : "web-server",
+        "http_port_max" : 9000,
+        "http_port_min" : 8000,
+        "output_directory": "output-virtualbox-iso",
+        "shutdown_command": "echo {{user `ssh_pass`}} | sudo -S shutdown -P now",
+        "source_path": "{{ user `ova` }}",
+        "ssh_password": "{{user `ssh_pass`}}",
+        "ssh_port": 22,
+        "ssh_username": "{{user `ssh_name`}}",
+        "ssh_wait_timeout": "20m",
+        "ssh_pty": "true",
+        "type": "virtualbox-ovf",
+	"vboxmanage": [ 
+	    ["modifyvm", "{{.Name}}", "--vram", "32"],
+	    ["modifyvm", "{{.Name}}", "--memory", "4096"],
+	    ["modifyvm", "{{.Name}}", "--cpus", "2"],
+	    ["modifyvm", "{{.Name}}", "--audio", "none"],
+	    ["modifyvm", "{{.Name}}", "--clipboard", "bidirectional"],
+            ["modifyvm", "{{.Name}}", "--nic1","NAT"]
+	],
+	"vboxmanage_post": [],
+	"vm_name": "xedora-x64-baked"
+    }],	
+    "provisioners": [
+        {
+            "type": "file",
+            "source": "files/inventory",
+            "destination": "/tmp/inventory"
+        },
+        {
+            "type": "file",
+            "source": "files/desktop-requirements.yml",
+            "destination": "/tmp/desktop-requirements.yml"
+        },
+        {
+            "type": "file",
+            "source": "files/desktop.yml",
+            "destination": "/tmp/desktop.yml"
+        },
+        {
+            "execute_command": "echo '{{user `ssh_pass`}}' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
+            "type": "shell",
+            "scripts": ["scripts/passwordless-sudo.sh",
+                        "scripts/install-tools-fedora.sh",
+                        "scripts/configure-ssh-directory.sh",
+                        "scripts/disable-dns-lookups.sh",
+                        "scripts/install-virtualbox.sh"]
+        },
+        {
+            "type": "shell",
+            "scripts": ["scripts/install-ansible-fedora.sh"]
+        },
+        {
+            "type": "shell",
+            "inline": ["sudo rm -f /home/vagrant/Downloads/*.*"]
+        },
+        {
+            "execute_command": "echo '{{user `ssh_pass`}}' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
+            "type": "shell",
+            "scripts": ["scripts/zero-out-disk.sh"]
+        }
+    ],
+    "post-processors": [
+        [{
+             "compression_level": 9,
+             "include": [],
+             "keep_input_artifact": false,
+             "output": "vagrant/xedora-x64-baked.box",
+             "type": "vagrant"
+         },
+	 {
+            "type": "atlas",
+            "artifact": "kurron/xedora-x64-baked",
+            "artifact_type": "vagrant.box",
+            "metadata": {
+		"provider": "virtualbox",
+		"version": "{{user `version`}}",
+		"description": "{{user `comment`}}",
+                "created_at": "{{timestamp}}"
+            }
+        }]
+    ]
+}

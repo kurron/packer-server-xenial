@@ -1,0 +1,166 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure(2) do |config|
+# config.vm.box = "trusty-x64-xubuntu/5.0.14"
+# config.vm.network "public_network"
+# config.vm.hostname = "packer-test"
+  config.ssh.username = "vagrant"
+  config.ssh.password = "vagrant"
+# config.ssh.forward_agent = true
+# config.ssh.forward_x11 = true
+
+  config.vm.provider "virtualbox" do |v|
+      v.gui = true
+      v.customize ["modifyvm", :id, "--rtcuseutc", "on"]
+      v.customize ["modifyvm", :id, "--hwvirtex", "on"]
+      v.customize ["modifyvm", :id, "--nestedpaging", "on"]
+      v.customize ["modifyvm", :id, "--vtxvpid", "on"]
+      v.customize ["modifyvm", :id, "--largepages", "on"]
+      v.customize ["modifyvm", :id, "--acpi", "on"]
+      v.customize ["modifyvm", :id, "--nictype1", "virtio"]
+      v.customize ["modifyvm", :id, "--groups", "/Clean Slate"]
+      v.customize ["modifyvm", :id, "--memory", "2048"]
+      v.customize ["modifyvm", :id, "--vram", "24"]
+      v.customize ["modifyvm", :id, "--cpus", "2"]
+  end
+
+  config.vm.define "centosgnome" do |centosgnome|
+      centosgnome.vm.provider "virtualbox" do |v|
+          v.gui = true
+          v.name = "packer.centosgnome"
+          v.customize ["modifyvm", :id, "--memory", "4096"]
+      end
+      centosgnome.vm.box = "centos-x64-gnome-baked/5.1.7"
+#     centosgnome.vm.box = "centos-x64-gnome/5.1.6"
+#     centosgnome.vm.provision "file", source: "files/inventory", destination: "/tmp/inventory"
+#     centosgnome.vm.provision "shell" do |remote|
+#         remote.path = "scripts/install-ansible-centos.sh"
+#     end
+#     centosgnome.vm.provision "shell" do |remote|
+#         remote.path = "scripts/install-git-centos.sh"
+#     end
+#     centosgnome.vm.provision "shell" do |remote|
+#         remote.path = "scripts/install-operations-tools.sh"
+#     end
+#     centosgnome.vm.provision "shell" do |remote|
+#       remote.path = "scripts/install-development-tools.sh"
+#     end
+#     centosgnome.vm.provision "shell" do |remote|
+#       remote.path = "scripts/install-docker.sh"
+#     end
+  end
+
+  config.vm.define "xubuntufull" do |xubuntufull|
+      xubuntufull.vm.provider "virtualbox" do |v|
+          v.gui = true
+          v.name = "packer.xubuntu.baked"
+          v.customize ["modifyvm", :id, "--memory", "4096"]
+      end
+      xubuntufull.vm.box = "xenial-x64-xubuntu-baked/5.1.9"
+#     xubuntufull.vm.box = "xenial-x64-xubuntu/5.1.6"
+#     xubuntufull.vm.provision "file", source: "files/inventory", destination: "/tmp/inventory"
+#     xubuntufull.vm.provision "shell" do |remote|
+#         remote.path = "scripts/install-ansible.sh"
+#     end
+#     xubuntufull.vm.provision "shell" do |remote|
+#         remote.path = "scripts/install-operations-tools.sh"
+#     end
+#     xubuntufull.vm.provision "shell" do |remote|
+#       remote.path = "scripts/install-development-tools.sh"
+#     end
+#     xubuntufull.vm.provision "shell" do |remote|
+#       remote.path = "scripts/install-docker.sh"
+#     end
+  end
+
+  config.vm.define "xedora" do |xedora|
+      xedora.vm.provider "virtualbox" do |v|
+          v.gui = true
+          v.name = "packer.xedora"
+          v.customize ["modifyvm", :id, "--memory", "4096"]
+      end
+#     xedora.vm.box = "xenial-x64-xubuntu-baked/5.1.9"
+      xedora.vm.box = "xedora-x64-baked/5.1.8"
+  end
+
+  config.vm.define "xubuntu" do |xubuntu|
+      xubuntu.vm.provider "virtualbox" do |v|
+          v.gui = true
+          v.name = "packer.xubuntu"
+          v.customize ["modifyvm", :id, "--memory", "4096"]
+      end
+      xubuntu.vm.box = "xenial-x64-xubuntu/5.1.6"
+  end
+
+  config.vm.define "lubuntu" do |lubuntu|
+      lubuntu.vm.provider "virtualbox" do |v|
+          v.gui = true
+          v.name = "packer.lubuntu"
+          v.customize ["modifyvm", :id, "--memory", "4096"]
+      end
+      lubuntu.vm.box = "xenial-x64-lubuntu/5.1.6"
+  end
+
+  config.vm.define "kubuntu" do |kubuntu|
+      kubuntu.vm.provider "virtualbox" do |v|
+          v.gui = true
+          v.name = "packer.kubuntu"
+          v.customize ["modifyvm", :id, "--memory", "4096"]
+      end
+      kubuntu.vm.box = "xenial-x64-kubuntu/5.1.6"
+  end
+
+  config.vm.define "mate" do |mate|
+      mate.vm.provider "virtualbox" do |v|
+          v.gui = true
+          v.name = "packer.mate"
+          v.customize ["modifyvm", :id, "--memory", "4096"]
+      end
+      mate.vm.box = "xenial-x64-mate/5.1.6"
+  end
+
+  config.vm.define "gnome" do |gnome|
+      gnome.vm.provider "virtualbox" do |v|
+          v.gui = true
+          v.name = "packer.gnome"
+          v.customize ["modifyvm", :id, "--memory", "4096"]
+      end
+      gnome.vm.box = "xenial-x64-gnome/5.1.6"
+  end
+
+  config.vm.define "cinnamon" do |cinnamon|
+      cinnamon.vm.provider "virtualbox" do |v|
+          v.gui = true
+          v.name = "packer.cinnamon"
+          v.customize ["modifyvm", :id, "--memory", "4096"]
+      end
+      cinnamon.vm.box = "xenial-x64-cinnamon/5.1.6"
+  end
+
+  config.vm.define "ubuntu" do |ubuntu|
+      ubuntu.vm.provider "virtualbox" do |v|
+          v.gui = true
+          v.name = "packer.ubuntu"
+          v.customize ["modifyvm", :id, "--memory", "4096"]
+      end
+      ubuntu.vm.box = "xenial-x64-ubuntu/5.1.6"
+  end
+
+  config.vm.define "server" do |server|
+      server.vm.provider "virtualbox" do |v|
+          v.gui = true
+          v.name = "packer.server"
+      end
+      server.vm.box = "xenial-x64-server/5.1.6"
+  end
+
+  config.vm.define "maipo" do |maipo|
+      maipo.vm.provider "virtualbox" do |v|
+          v.gui = true
+          v.name = "packer.maipo"
+      end
+      maipo.vm.box = "maipo-x64-server/5.1.8"
+  end
+
+end

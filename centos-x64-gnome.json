@@ -1,0 +1,79 @@
+{
+    "description": "Builds an Ansible enabled CentOS 7 Desktop x64 box",
+    "min_packer_version": "0.10.2",
+
+    "variables": {
+        "ssh_name": "vagrant",
+        "ssh_pass": "vagrant",
+        "hostname": "centos-gnome",
+	"version": "5.1.7",
+        "comment": "Upgrade to VirtualBox 5.1.6",
+        "ova": "keep/CentOS-7.ova"
+    },
+
+    "builders": [{
+        "boot_command" : [
+        ],
+        "boot_wait": "10s",
+        "floppy_files": [],
+        "format": "ova",
+        "guest_additions_mode": "upload",
+        "guest_additions_path" : "VBoxGuestAdditions_{{.Version}}.iso",
+        "headless": false,
+        "http_directory" : "web-server",
+        "http_port_max" : 9000,
+        "http_port_min" : 8000,
+        "output_directory": "output-virtualbox-iso",
+        "shutdown_command": "echo {{user `ssh_pass`}} | sudo -S shutdown -P now",
+        "source_path": "{{ user `ova` }}",
+        "ssh_password": "{{user `ssh_pass`}}",
+        "ssh_pty" : "true",
+        "ssh_port": 22,
+        "ssh_username": "{{user `ssh_name`}}",
+        "ssh_wait_timeout": "20m",
+        "type": "virtualbox-ovf",
+	"vboxmanage": [ 
+		    ["modifyvm", "{{.Name}}", "--vram", "32"],
+		    ["modifyvm", "{{.Name}}", "--memory", "4096"],
+		    ["modifyvm", "{{.Name}}", "--cpus", "2"],
+		    ["modifyvm", "{{.Name}}", "--audio", "none"],
+		    ["modifyvm", "{{.Name}}", "--clipboard", "bidirectional"]
+	],
+	"vboxmanage_post": [],
+	"vm_name": "centos-x64-gnome"
+    }],	
+    "provisioners": [
+        {
+            "execute_command": "echo '{{user `ssh_pass`}}' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
+            "type": "shell",
+            "scripts": ["scripts/passwordless-sudo.sh",
+                        "scripts/install-tools-centos.sh",
+                        "scripts/install-git-centos.sh",
+                        "scripts/configure-ssh-directory.sh",
+                        "scripts/disable-dns-lookups.sh",
+                        "scripts/install-virtualbox.sh",
+                        "scripts/zero-out-disk.sh"]
+        }
+    ],
+    "post-processors": [
+        [{
+             "compression_level": 9,
+             "include": [],
+             "keep_input_artifact": true,
+             "output": "vagrant/centos-x64-gnome.box",
+             "type": "vagrant"
+        },
+	    {
+            "type": "atlas",
+            "artifact": "kurron/centos-x64-gnome-desktop",
+            "artifact_type": "vagrant.box",
+            "metadata": {
+		        "provider": "virtualbox",
+                "version": "{{user `version`}}",
+		        "description": "{{user `comment`}}",
+                "created_at": "{{timestamp}}"
+            }
+        }
+        ]
+    ]
+}
