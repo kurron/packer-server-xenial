@@ -6,10 +6,10 @@
         "ssh_name": "vagrant",
         "ssh_pass": "vagrant",
         "hostname": "xenial-server-docker",
-        "version": "5.1.8",
+        "version": "5.1.10",
         "comment": "Docker 1.12.3",
         "home": "{{env `HOME`}}",
-        "bare-version": "5.1.8"
+        "bare-version": "5.1.10"
     },
 
     "builders": [{
