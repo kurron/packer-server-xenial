@@ -26,7 +26,7 @@ Vagrant.configure(2) do |config|
           v.gui = true
           v.name = "packer.xenial-bare"
       end
-      server.vm.box = "xenial-server-bare/5.1.8"
+      server.vm.box = "xenial-server-bare/5.1.10"
   end
 
 end
