@@ -9,7 +9,7 @@ the box with additional software, such as Docker or MongoDB.
 * a working [Vagrant](https://www.vagrantup.com/) installation
 
 ## Custom VirtualBox Appliance
-Currently, the process relies upon a VirtualBox applicance which was created by hand and is not
+Currently, the process relies upon a VirtualBox appliance which was created by hand and is not
 currently part of this project.  I did this because I wanted to use the virtualization aware kernel
 and couldn't figure out how to do that in an automated fashion.  For this to work,
 you must have `Xenial-x64-Server.ova` in the root directory.
@@ -33,6 +33,12 @@ this project to see what might be of interest to you, such as a Docker server
 or a box with the Hashistack installed.
 
 # Troubleshooting
+
+## Root Account
+The `root` account has a password of `password`.
+
+## Normal Account
+The `vagrant` account has a password of `vagrant`.
 
 # License and Credits
 This project is licensed under the [Apache License Version 2.0, January 2004](http://www.apache.org/licenses/).
