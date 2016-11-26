@@ -18,8 +18,7 @@ you must have `Xenial-x64-Server.ova` in the root directory.
 Type `./build.sh` to build the server box.
 
 # Installation
-The scripts will automatically install the newly built boxes into Vagrant's cache
-and publish them to Hashicorp's Atlas.
+The scripts will automatically install the newly built box into Vagrant's cache.
 
 # Tips and Tricks
 
