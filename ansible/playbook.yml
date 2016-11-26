@@ -4,3 +4,12 @@
 
   roles:
       - { role: kurron.docker-host }
+
+  post_tasks:
+      - name: Clear out Downloads
+        shell: "rm -f {{ansible_user_dir}}/Downloads/*.*"
+      - name: Clear Out Guest Additions
+        shell: "rm -f {{ansible_user_dir}}/*.iso"
+      - name: Erase downloaded archive files
+        shell: "apt-get -y clean"
+        become: yes
