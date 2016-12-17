@@ -1,1 +1,2 @@
 - src: kurron.docker-host
+- src: kurron.elastic-stack

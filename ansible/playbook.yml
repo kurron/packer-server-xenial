@@ -4,6 +4,7 @@
 
   roles:
       - { role: kurron.docker-host }
+      - { role: kurron.elastic-stack }
 
   post_tasks:
       - name: Clear out Downloads
