@@ -3,8 +3,10 @@
   gather_facts: yes
 
   roles:
-      - { role: kurron.docker-host }
+      - { role: kurron.hashicorp, hashicorp_vagrant_install: false }
+      - { role: kurron.artifactory }
       - { role: kurron.elastic-stack }
+      - { role: kurron.docker-host }
 
   post_tasks:
       - name: Clear out Downloads

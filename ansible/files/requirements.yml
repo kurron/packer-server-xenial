@@ -1,2 +1,4 @@
 - src: kurron.docker-host
 - src: kurron.elastic-stack
+- src: kurron.artifactory
+- src: kurron.hashicorp
