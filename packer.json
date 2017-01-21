@@ -1,13 +1,13 @@
 {
     "description": "Builds an Ubuntu 16.04 Server box with Docker installed",
-    "min_packer_version": "0.12.1",
+    "min_packer_version": "0.12.2",
 
     "variables": {
         "ssh_name": "vagrant",
         "ssh_pass": "vagrant",
         "hostname": "xenial-server-docker",
-        "version": "5.1.12",
-        "comment": "Docker 1.12.5",
+        "version": "5.1.14",
+        "comment": "Docker 1.13.0",
         "home": "{{env `HOME`}}"
     },
 
