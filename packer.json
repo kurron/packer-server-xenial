@@ -7,7 +7,7 @@
         "ssh_pass": "vagrant",
         "hostname": "xenial-server-docker",
         "version": "5.1.18",
-        "comment": "Docker 17.03.0-ce",
+        "comment": "Upgrade to VirtualBox 5.1.18",
         "home": "{{env `HOME`}}"
     },
 
