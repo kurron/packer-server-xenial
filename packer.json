@@ -6,8 +6,8 @@
         "ssh_name": "vagrant",
         "ssh_pass": "vagrant",
         "hostname": "xenial-server-bare",
-        "version": "5.1.16",
-        "comment": "Upgrade to VirtualBox 5.1.16",
+        "version": "5.1.18",
+        "comment": "Upgrade to VirtualBox 5.1.18",
         "ovf": "Xenial-x64-Server.ova"
     },
 
