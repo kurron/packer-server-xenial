@@ -8,10 +8,6 @@ Vagrant.configure(2) do |config|
   config.ssh.username = "vagrant"
   config.ssh.password = "vagrant"
 
-  # The "Vagrant was unable to mount VirtualBox shared folders." bug is back.
-  # Disabling it for now until it gets fixed.
-  config.vm.synced_folder ".", "/vagrant", disabled: true
-
   config.vm.provider "virtualbox" do |v|
       v.gui = true
       v.customize ["modifyvm", :id, "--rtcuseutc", "on"]
