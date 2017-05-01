@@ -4,3 +4,5 @@ output-virtualbox-iso
 vagrant
 .vagrant
 *.ova
+packer-no-publish.json
+roles/
