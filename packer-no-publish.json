@@ -60,17 +60,6 @@
              "keep_input_artifact": true,
              "output": "vagrant-kubernetes/xenial-server-kubernetes.box",
              "type": "vagrant"
-        },
-        {
-            "type": "atlas",
-            "artifact": "{{user `atlas`}}/xenial-server-kubernetes",
-            "artifact_type": "vagrant.box",
-            "metadata": {
-                "provider": "virtualbox",
-                "version": "{{user `version`}}",
-                "description": "{{user `comment`}}",
-                "created_at": "{{timestamp}}"
-            }
         }]
     ]
 }

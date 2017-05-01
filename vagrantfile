@@ -17,18 +17,19 @@ Vagrant.configure(2) do |config|
       v.customize ["modifyvm", :id, "--largepages", "on"]
       v.customize ["modifyvm", :id, "--acpi", "on"]
       v.customize ["modifyvm", :id, "--nictype1", "virtio"]
+      v.customize ["modifyvm", :id, "--nictype2", "virtio"]
       v.customize ["modifyvm", :id, "--groups", "/Packer Testing"]
-      v.customize ["modifyvm", :id, "--memory", "2048"]
+      v.customize ["modifyvm", :id, "--memory", "4096"]
       v.customize ["modifyvm", :id, "--vram", "24"]
-      v.customize ["modifyvm", :id, "--cpus", "1"]
+      v.customize ["modifyvm", :id, "--cpus", "2"]
   end
 
-  config.vm.define "xenial-bare" do |server|
+  config.vm.define "xenial-kubernetes" do |server|
       server.vm.provider "virtualbox" do |v|
           v.gui = true
-          v.name = "packer.xenial-bare"
+          v.name = "packer.xenial-kubernetes"
       end
-      server.vm.box = "xenial-server-bare"
+      server.vm.box = "xenial-server-kubernetes"
   end
 
 end
