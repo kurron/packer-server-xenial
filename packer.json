@@ -6,8 +6,8 @@
         "ssh_name": "vagrant",
         "ssh_pass": "vagrant",
         "hostname": "xenial-server-docker",
-        "version": "5.1.24",
-        "comment": "Upgrade to VirtualBox 5.1.24",
+        "version": "5.1.26",
+        "comment": "Upgrade to VirtualBox 5.1.26",
         "home": "{{env `HOME`}}",
         "cloud_user": "{{env `VAGRANT_CLOUD_ACCOUNT`}}",
         "cloud_token": "{{env `VAGRANT_CLOUD_TOKEN`}}"
