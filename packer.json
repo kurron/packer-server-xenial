@@ -1,13 +1,13 @@
 {
     "description": "Builds a bare bones, Ubuntu 16.04 Server x64 box",
-    "min_packer_version": "1.0.0",
+    "min_packer_version": "1.0.3",
 
     "variables": {
         "ssh_name": "vagrant",
         "ssh_pass": "vagrant",
         "hostname": "xenial-server-bare",
-        "version": "5.1.24",
-        "comment": "Upgrade to VirtualBox 5.1.24",
+        "version": "5.1.26",
+        "comment": "Upgrade to VirtualBox 5.1.26",
         "ovf": "Xenial-x64-Server.ova"
     },
 
