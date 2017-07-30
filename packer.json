@@ -1,6 +1,6 @@
 {
     "description": "Builds an Ubuntu 16.04 Server box with Docker installed",
-    "min_packer_version": "1.0.0",
+    "min_packer_version": "1.0.3",
 
     "variables": {
         "ssh_name": "vagrant",
@@ -9,7 +9,8 @@
         "version": "5.1.24",
         "comment": "Upgrade to VirtualBox 5.1.24",
         "home": "{{env `HOME`}}",
-        "atlas": "{{env `ATLAS_ACCOUNT`}}"
+        "cloud_user": "{{env `VAGRANT_CLOUD_ACCOUNT`}}",
+        "cloud_token": "{{env `VAGRANT_CLOUD_TOKEN`}}"
     },
 
     "builders": [{
@@ -69,15 +70,11 @@
              "type": "vagrant"
         },
         {
-            "type": "atlas",
-            "artifact": "{{user `atlas`}}/xenial-server-docker",
-            "artifact_type": "vagrant.box",
-            "metadata": {
-                "provider": "virtualbox",
-                "version": "{{user `version`}}",
-                "description": "{{user `comment`}}",
-                "created_at": "{{timestamp}}"
-            }
+            "access_token": "{{user `cloud_token`}}",
+            "box_tag": "{{user `cloud_user`}}/xenial-server-docker",
+            "type": "vagrant-cloud",
+            "version": "{{user `version`}}",
+            "version_description": "{{user `comment`}}"
         }]
     ]
 }
